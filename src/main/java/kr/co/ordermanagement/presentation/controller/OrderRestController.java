@@ -51,5 +51,17 @@ public class OrderRestController {
 
 
   //4. 주문 상태로 조회
+  @GetMapping("/orders?state={state}")
+  public List<OrderProductResponseDto> getOrdersByState(@PathVariable String state) {
+    List<OrderProductResponseDto> orderProductResponseDtos = simpleOrderService.findByState(state);
+
+    return orderProductResponseDtos;
+  }
+
   //5. 주문 취소 API
+  @PatchMapping("/orders/{orderId}/cancel")
+  public OrderProductResponseDto cancelOrderById(@PathVariable Long orderId) {
+    return simpleOrderService.cancelById(orderId);
+  }
+
 }

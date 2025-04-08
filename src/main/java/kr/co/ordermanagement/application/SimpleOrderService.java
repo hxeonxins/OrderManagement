@@ -61,7 +61,7 @@ public class SimpleOrderService {
 
       Integer orderedAmount = orderProduct.getAmount();
       product.decreaseAmount(orderedAmount);
-      productRepository.update(product);
+//      productRepository.update(product); //굳이 필요 없음
 //      Integer stockAmount = product.getAmount();
 //
 //      product.setAmount(stockAmount - orderedAmount);
@@ -103,6 +103,21 @@ public class SimpleOrderService {
     String state = changeOrderStateRequestDto.getState();
 
     order.changeStateForce(state); //Force:강제
+    return OrderProductResponseDto.toDto(order);
+  }
+
+  public List<OrderProductResponseDto> findByState(String state) {
+    List<Order> orders = orderRepository.findByState(state);
+    return orders.stream()
+            .map(order -> OrderProductResponseDto.toDto(order))
+            .toList();
+  }
+
+  public OrderProductResponseDto cancelById(Long orderId) {
+    Order order = orderRepository.findById(orderId);
+    order.cancel();
+//    orderRepository.update(order); //할 필요 없음. 주소를 공유하기 때문~! +디비 안씀
+
     return OrderProductResponseDto.toDto(order);
   }
 }

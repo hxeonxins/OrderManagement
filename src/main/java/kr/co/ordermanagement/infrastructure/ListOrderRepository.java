@@ -34,9 +34,16 @@ public class ListOrderRepository implements OrderRepository {
             //filter 안에는 람다식을 적는다.
             //stream 체이닝 메서드 안에는 그냥 람다식을 적는다고 생각하면 됨
             //자바 빈 규약에 따라 도메인(order)의 get, set 메서드를 가급적 드러내지 않는 것이 좋다..
-            .filter(order -> order.sameId(orderId))//캡슐화(Encapsulation), 도메인 메서드 처리, tell not ask 처리
+            .filter(order -> order.sameId(orderId))//캡슐화(Encapsulation), 도메인 메서드 처리, tell don't ask 처리
 //            .filter(order -> order.getId() == orderId)
             .findFirst()
             .orElseThrow(() -> new EntityNotFoundException("Order를 찾지 못했습니다."));
+  }
+
+  @Override
+  public List<Order> findByState(String state) {
+    return orders.stream()
+            .filter(order -> order.sameState(state))
+            .toList();
   }
 }
