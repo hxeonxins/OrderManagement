@@ -2,6 +2,7 @@ package kr.co.ordermanagement.application;
 
 import kr.co.ordermanagement.domain.order.Order;
 import kr.co.ordermanagement.domain.order.OrderRepository;
+import kr.co.ordermanagement.domain.order.State;
 import kr.co.ordermanagement.domain.product.Product;
 import kr.co.ordermanagement.domain.product.ProductRepository;
 import kr.co.ordermanagement.presentation.dto.ChangeOrderStateRequestDto;
@@ -100,13 +101,13 @@ public class SimpleOrderService {
 
   public OrderProductResponseDto changeState(Long orderId, ChangeOrderStateRequestDto changeOrderStateRequestDto) {
     Order order = orderRepository.findById(orderId);
-    String state = changeOrderStateRequestDto.getState();
+    State state = changeOrderStateRequestDto.getState();
 
     order.changeStateForce(state); //Force:강제
     return OrderProductResponseDto.toDto(order);
   }
 
-  public List<OrderProductResponseDto> findByState(String state) {
+  public List<OrderProductResponseDto> findByState(State state) {
     List<Order> orders = orderRepository.findByState(state);
     return orders.stream()
             .map(order -> OrderProductResponseDto.toDto(order))

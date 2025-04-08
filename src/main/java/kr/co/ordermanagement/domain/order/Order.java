@@ -5,16 +5,19 @@ import kr.co.ordermanagement.presentation.dto.ProductDto;
 
 import java.util.List;
 
+import static kr.co.ordermanagement.domain.order.State.CANCELED;
+import static kr.co.ordermanagement.domain.order.State.CREATED;
+
 public class Order {
   private Long id;
   private List<Product> orderProducts;
   private Integer totalPrice;
-  private String state;
+  private State state;
 
   public Order(List<Product> orderProducts) {
     this.orderProducts = orderProducts;
     this.totalPrice = calculateTotalPrice(orderProducts);
-    this.state = "CREATED";
+    this.state = CREATED;
   }
 
   //Getter, Setter 남발 하면 안됨
@@ -42,7 +45,7 @@ public class Order {
     return this.totalPrice;
   }
 
-  public String getState() {
+  public State getState() {
     return this.state;
   }
 
@@ -50,15 +53,15 @@ public class Order {
     return this.id.equals(orderId);
   }
 
-  public void changeStateForce(String state) {
+  public void changeStateForce(State state) {
     this.state = state;
   }
 
-  public boolean sameState(String state) {
+  public boolean sameState(State state) {
     return this.state.equals(state);
   }
 
   public void cancel() {
-    this.state = "CANCELED";
+    this.state = CANCELED;
   }
 }
