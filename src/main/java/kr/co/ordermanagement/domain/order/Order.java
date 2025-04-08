@@ -31,7 +31,7 @@ public class Order {
   }
 
   public List<Product> getOrderedProducts() {
-    return orderProducts;
+    return this.orderProducts;
   }
 
   public Long getId() {
@@ -44,5 +44,13 @@ public class Order {
 
   public String getState() {
     return this.state;
+  }
+
+  public boolean sameId(Long orderId) {
+    return this.id.equals(orderId);
+  }
+
+  public void changeStateForce(String state) {
+    this.state = state;
   }
 }

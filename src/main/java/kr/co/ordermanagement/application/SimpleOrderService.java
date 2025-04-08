@@ -4,6 +4,7 @@ import kr.co.ordermanagement.domain.order.Order;
 import kr.co.ordermanagement.domain.order.OrderRepository;
 import kr.co.ordermanagement.domain.product.Product;
 import kr.co.ordermanagement.domain.product.ProductRepository;
+import kr.co.ordermanagement.presentation.dto.ChangeOrderStateRequestDto;
 import kr.co.ordermanagement.presentation.dto.OrderProductRequestDto;
 import kr.co.ordermanagement.presentation.dto.OrderProductResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,5 +91,18 @@ public class SimpleOrderService {
 //                //throw new -> 지저분하게 씀
 //              }
             }).toList();
+  }
+
+  public OrderProductResponseDto findById(Long orderId) {
+    Order order = orderRepository.findById(orderId);
+    return OrderProductResponseDto.toDto(order);
+  }
+
+  public OrderProductResponseDto changeState(Long orderId, ChangeOrderStateRequestDto changeOrderStateRequestDto) {
+    Order order = orderRepository.findById(orderId);
+    String state = changeOrderStateRequestDto.getState();
+
+    order.changeStateForce(state); //Force:강제
+    return OrderProductResponseDto.toDto(order);
   }
 }
