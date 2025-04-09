@@ -45,7 +45,7 @@ public class Product {
 
   public void checkEnoughAmount(Integer orderedAmount) {
     if (orderedAmount > this.amount) {
-      throw new RuntimeException(this.id + " is out of stock");
+      throw new RuntimeException(this.id + "번 상품의 수량이 부족합니다.");
 
     }
   }

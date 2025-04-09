@@ -1,7 +1,6 @@
 package kr.co.ordermanagement.domain.order;
 
 import kr.co.ordermanagement.domain.product.Product;
-import kr.co.ordermanagement.presentation.dto.ProductDto;
 
 import java.util.List;
 
@@ -62,6 +61,10 @@ public class Order {
   }
 
   public void cancel() {
+//    if(!State.CREATED.equals(this.state)) { //if 문 자제하는게 좋음..
+//      throw new CancelNotAllowedException("이미 취소되었거나 취소할 수 없는 주문상태입니다.");
+//    }
+    this.state.checkCancelability(); //Enum에 따로 오버라이딩 시킴
     this.state = State.CANCELED;
   }
 }
