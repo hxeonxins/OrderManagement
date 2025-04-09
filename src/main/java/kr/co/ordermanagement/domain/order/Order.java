@@ -62,6 +62,6 @@ public class Order {
   }
 
   public void cancel() {
-    this.state = CANCELED;
+    this.state = State.CANCELED;
   }
 }
