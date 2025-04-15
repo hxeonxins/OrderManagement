@@ -4,7 +4,6 @@ import kr.co.ordermanagement.domain.product.Product;
 
 import java.util.List;
 
-import static kr.co.ordermanagement.domain.order.State.CANCELED;
 import static kr.co.ordermanagement.domain.order.State.CREATED;
 
 public class Order {
